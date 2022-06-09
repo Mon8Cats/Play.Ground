@@ -15,32 +15,32 @@ namespace Catalog.Api.Repositories
             _productCollection = database.GetCollection<Product>(collectionName);
         }
 
-        public void CreateProduct(Product product)
+        public async Task CreateProductAsync(Product product)
         {
-            _productCollection.InsertOne(product);
+            await _productCollection.InsertOneAsync(product);
         }
 
-        public void DeleteProduct(Guid id)
-        {
-            var filter = _filterBuilder.Eq(p => p.Id, id);
-            _productCollection.DeleteOne(filter);
-        }
-
-        public Product GetProduct(Guid id)
+        public async Task DeleteProductAsync(Guid id)
         {
             var filter = _filterBuilder.Eq(p => p.Id, id);
-            return _productCollection.Find(filter).SingleOrDefault();
+            await _productCollection.DeleteOneAsync(filter);
         }
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<Product> GetProductAsync(Guid id)
         {
-            return _productCollection.Find(_filterBuilder.Empty).ToList();
+            var filter = _filterBuilder.Eq(p => p.Id, id);
+            return await _productCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public void UpdateProduct(Product product)
+        public async Task<IEnumerable<Product>> GetProductsAsync()
+        {
+            return await _productCollection.Find(_filterBuilder.Empty).ToListAsync();
+        }
+
+        public async Task UpdateProductAsync(Product product)
         {
             var filter = _filterBuilder.Eq(p => p.Id, product.Id);
-            _productCollection.ReplaceOne(filter, product);
+            await _productCollection.ReplaceOneAsync(filter, product);
         }
     }
 }

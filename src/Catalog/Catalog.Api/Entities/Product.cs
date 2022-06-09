@@ -11,7 +11,7 @@ namespace Catalog.Api.Entities
         public string Name { get; init; }
         public decimal Price { get; init; }
 
-        public DateTimeOffset CreatedDate { get; init;}
+        public DateTimeOffset CreatedDate { get; init; }
 
     }
 

@@ -8,6 +8,9 @@ services:
       - 27017:27017 
     volumes:
       - mongodbdata:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=Pa##w0rd
 
   # rabbitmq:
   #   image: rabbitmq:management

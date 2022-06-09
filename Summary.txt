@@ -1,2 +1,57 @@
 docker-compose up -d 
 docker ps
+
+
+
+Secrets
+    appsettings.json 
+    Configuration Source 
+    (Conmand line args, environment variables, cloud sources)
+    REST API 
+    MongoDB
+
+Health Checks
+    builder.Services.AddHealthChecks();
+
+    app.UseRouting();
+    app.UseAuthorization();
+    //app.MapControllers();
+    app.UseEndpoints(endpoints => 
+    {
+        endpoints.MapControllers();
+        endpoints.MapHealthChecks("/health");
+    });
+
+    AspNetCore.HealthChecks.MongoDb
+
+DotNet Secret Manager
+    dotnet user-secrets init 
+    -->  <UserSecretsId> in csproj file
+    dotnet user-secrets set MongoDbSettings:Password Pa$$w0rd  # cannot use $ sigin
+    dotnet user-secrets listd
+    MongoDbSettings:Password = Pa##w0rd
+
+
+Docker commands
+    docker ps
+    docker stop <container name> 
+    docker volume ls 
+    docker volume prune
+    docker volume rm <volume name>
+    docker-compose up -d
+    docker-compose down 
+    docker system prune
+    docker system prune -a
+    docker images -a
+
+
+Unit Testing
+
+TDD
+    Write a failing test 
+    Make the test pass 
+    Refactor 
+
+    focus on requirement, not on imolementation
+    increase test coverage 
+    forces clean design 

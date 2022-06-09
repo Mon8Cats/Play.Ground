@@ -1,16 +1,17 @@
 using Catalog.Api.Entities;
+//using System.Threading.Tasks;
 
 namespace Catalog.Api.Repositories
 {
     public interface IProductRepository
     {
-        Product GetProduct(Guid id);
-        IEnumerable<Product> GetProducts();
+        Task<Product> GetProductAsync(Guid id);
+        Task<IEnumerable<Product>> GetProductsAsync();
 
-        void CreateProduct(Product product);
+        Task CreateProductAsync(Product product);
 
-        void UpdateProduct(Product product);
+        Task UpdateProductAsync(Product product);
 
-        void DeleteProduct(Guid id);
+        Task DeleteProductAsync(Guid id);
     }
 }

@@ -16,35 +16,39 @@ namespace Catalog.Api.Repositories
             new Product { Id = Guid.NewGuid(), Name = "Bronze Shield ", Price= 18, CreatedDate = DateTimeOffset.UtcNow },
         };
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return products;
+            return await Task.FromResult(products);
         }
 
-        public Product GetProduct(Guid id)
+        public async Task<Product> GetProductAsync(Guid id)
         {
             Console.WriteLine(id);
-            return products.Where(p => p.Id == id).SingleOrDefault();
+            var product = products.Where(p => p.Id == id).SingleOrDefault();
+            return await Task.FromResult(product);
         }
 
-        public void CreateProduct(Product product)
+        public async Task CreateProductAsync(Product product)
         {
             products.Add(product);
+            await Task.CompletedTask;
         }
 
-        public void UpdateProduct(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
             var index = products.FindIndex(p => p.Id == product.Id);
 
             products[index] = product;
+            await Task.CompletedTask;
 
         }
 
-        public void DeleteProduct(Guid id)
+        public async Task DeleteProductAsync(Guid id)
         {
             var index = products.FindIndex(p => p.Id == id);
 
             products.RemoveAt(index);
+            await Task.CompletedTask;
         }
     }
 }

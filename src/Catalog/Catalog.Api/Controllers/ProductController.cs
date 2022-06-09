@@ -23,19 +23,20 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductDto> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-            var products = _repository.GetProducts().Select(p => p.AsDto());
+            var products = (await _repository.GetProductsAsync())
+                            .Select(p => p.AsDto());
 
             return products;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetProduct(Guid id)
+        public async Task<ActionResult<ProductDto>> GetProductAsync(Guid id)
         {
-            var product = _repository.GetProduct(id);
+            var product = await _repository.GetProductAsync(id);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -43,7 +44,7 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> CreateProductAsync(CreateProductDto productDto)
         {
             Product product = new()
             {
@@ -53,44 +54,45 @@ namespace Catalog.Api.Controllers
                 CreatedDate = DateTimeOffset.UtcNow
             };
 
-            _repository.CreateProduct(product);
+            await _repository.CreateProductAsync(product);
 
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product.AsDto());
+            return CreatedAtAction(nameof(GetProductAsync), new { id = product.Id }, product.AsDto());
         }
 
 
         [HttpPut("{id}")]
-        public ActionResult UpdateProduct(Guid id, UpdateProductDto productDto)
+        public async Task<ActionResult> UpdateProductAsync(Guid id, UpdateProductDto productDto)
         {
-            var existingProduct = _repository.GetProduct(id);
+            var existingProduct = await _repository.GetProductAsync(id);
 
             if (existingProduct is null)
             {
                 return NotFound();
             }
 
-            Product updatedProduct = existingProduct with {
+            Product updatedProduct = existingProduct with
+            {
                 Name = productDto.Name,
                 Price = productDto.Price
             };
 
 
-            _repository.UpdateProduct(updatedProduct);
+            await _repository.UpdateProductAsync(updatedProduct);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteProduct(Guid id)
+        public async Task<ActionResult> DeleteProductAsync(Guid id)
         {
-            var existingProduct = _repository.GetProduct(id);
+            var existingProduct = await _repository.GetProductAsync(id);
 
             if (existingProduct is null)
             {
                 return NotFound();
             }
 
-            _repository.DeleteProduct(id);
+            await _repository.DeleteProductAsync(id);
 
             return NoContent();
         }
