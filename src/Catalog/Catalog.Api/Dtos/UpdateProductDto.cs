@@ -10,6 +10,7 @@ namespace Catalog.Api.Dtos
     {
         [Required]
         public string Name { get; init; }
+        public string Description { get; set; }
         
         [Required]
         [Range(1, 1000)]

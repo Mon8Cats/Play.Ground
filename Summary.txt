@@ -46,7 +46,18 @@ Docker commands
 
 
 Unit Testing
+    Frameworks
+        MSTest
+        nUnit
+        xUnit- prefer
+    dotnet add reference ../Catalog.Api/
 
+    click [run test] or
+    > dotnet test or 
+    click flask,  --- not working
+    install .net test explorer, and click settings of this,
+    -> check: Add Problems, cleck workspace, go to the very end 
+    Test Project Path: **/*Tests.csproj
 TDD
     Write a failing test 
     Make the test pass 

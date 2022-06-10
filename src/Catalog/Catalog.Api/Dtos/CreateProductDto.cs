@@ -11,6 +11,7 @@ namespace Catalog.Api.Dtos
         //public Guid Id { get; init; }
         [Required]
         public string Name { get; init; }
+        public string Description { get; set; }
         [Required]
         [Range(1, 1000)]
         public decimal Price { get; init; }

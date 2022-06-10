@@ -22,11 +22,20 @@ namespace Catalog.Api.Controllers
             _repository = repository;
         }
 
+        //[HttpGet("{name?}")]
         [HttpGet]
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(string name = null)
         {
             var products = (await _repository.GetProductsAsync())
                             .Select(p => p.AsDto());
+
+            if (string.IsNullOrWhiteSpace(name) || name.ToLower() == "empty")
+            {
+                //products = products.Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+                return products;
+            }
+
+             products = products.Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
 
             return products;
         }
@@ -40,7 +49,8 @@ namespace Catalog.Api.Controllers
             {
                 return NotFound();
             }
-            return Ok(product.AsDto());
+            //return Ok(product.AsDto());
+            return product.AsDto();
         }
 
         [HttpPost]
@@ -50,6 +60,7 @@ namespace Catalog.Api.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = productDto.Name,
+                Description = productDto.Description,
                 Price = productDto.Price,
                 CreatedDate = DateTimeOffset.UtcNow
             };
@@ -70,14 +81,29 @@ namespace Catalog.Api.Controllers
                 return NotFound();
             }
 
+            /*
             Product updatedProduct = existingProduct with
             {
                 Name = productDto.Name,
                 Price = productDto.Price
             };
+            */
+            existingProduct.Name = productDto.Name;
+            existingProduct.Description = productDto.Description;
+            existingProduct.Price = productDto.Price;
 
+            /*
+             Product updatedProduct = new Product
+            {
+                Id = existingProduct.Id,
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                CreatedDate = existingProduct.CreatedDate
+            };
+            */
 
-            await _repository.UpdateProductAsync(updatedProduct);
+            await _repository.UpdateProductAsync(existingProduct);
 
             return NoContent();
         }
@@ -97,5 +123,6 @@ namespace Catalog.Api.Controllers
             return NoContent();
         }
 
+       
     }
 }

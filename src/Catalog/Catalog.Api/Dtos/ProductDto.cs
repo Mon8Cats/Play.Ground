@@ -9,6 +9,7 @@ namespace Catalog.Api.Dtos
     {
         public Guid Id { get; init; }
         public string Name { get; init; }
+        public string Description { get; set; }
         public decimal Price { get; init; }
 
         public DateTimeOffset CreatedDate { get; init;}

@@ -15,6 +15,7 @@ namespace Catalog.Api.Helpers
             {
                 Id = product.Id,
                 Name = product.Name,
+                Description = product.Description,
                 Price = product.Price,
                 CreatedDate = product.CreatedDate
             };

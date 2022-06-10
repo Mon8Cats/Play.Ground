@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FI0yr5wjbWyugJ6IKm6dfYmv0Uzw06gnRGyZ6EUm4uNa7/85SiJ6dPW/nP4CDoFkHIVJtJx+LZtVUWuDbl3ubg==",
+  "success": true,
+  "projectFilePath": "/Users/stoneroot/Work.Space/Play.Ground/src/Catalog/build.proj",
+  "expectedPackageFiles": [
+    "/Users/stoneroot/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/Users/stoneroot/.nuget/packages/microsoft.netframework.referenceassemblies.net45/1.0.2/microsoft.netframework.referenceassemblies.net45.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
